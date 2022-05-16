@@ -1,0 +1,2 @@
+include ':scyllautils'
+project(':scyllautils').projectDir = new File(settingsDir, '../scyllautils')

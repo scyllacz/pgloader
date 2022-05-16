@@ -1,0 +1,30 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'https://files.liferay.com/mirrors/xuggle.googlecode.com/svn/trunk/repo/share/java/'
+    }
+}
+
+dependencies {
+    compile project(':scyllautils')
+
+    // https://mvnrepository.com/artifact/net.sourceforge.jexcelapi/jxl
+    compile group: 'net.sourceforge.jexcelapi', name: 'jxl', version: '2.6.12'
+
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.0.0'
+
+
+    testCompile 'junit:junit:4.12'
+}
+
+jar {
+    manifest {
+        attributes("Main-Class": "cz.scylla.main.Main")
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
